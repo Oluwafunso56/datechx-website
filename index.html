@@ -353,9 +353,9 @@ footer li a:hover{color:var(--emerald-bright);}
 .modal .eyebrow{margin-bottom:8px;}
 .modal h3{font-size:22px;margin-bottom:6px;}
 .modal .modal-sub{font-size:13.5px;color:#5b665f;margin-bottom:22px;}
-#enrolForm{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-#enrolForm .full{grid-column:1/-1;}
-#enrolForm .submit-btn{width:100%;justify-self:stretch;text-align:center;}
+#excelForm,#bundleForm,#schoolForm{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+#excelForm .full,#bundleForm .full,#schoolForm .full{grid-column:1/-1;}
+#excelForm .submit-btn,#bundleForm .submit-btn,#schoolForm .submit-btn{width:100%;justify-self:stretch;text-align:center;}
 
 
 /* ===== RESPONSIVE ===== */
@@ -670,7 +670,7 @@ footer li a:hover{color:var(--emerald-bright);}
           <li>1:1 online sessions</li>
           <li>Certificate of completion</li>
         </ul>
-        <button type="button" class="price-cta" onclick="openEnrol('Excel Mastery (2 Months — ₦150,000 / $100)')">Enroll Now →</button>
+        <button type="button" class="price-cta" onclick="openModal('excelModal')">Enroll Now →</button>
       </div>
 
       <div class="price-card featured">
@@ -678,7 +678,7 @@ footer li a:hover{color:var(--emerald-bright);}
         <div class="dur">3 Months · Beginner → Advanced</div>
         <h3>Power BI + SQL Bundle</h3>
         <div class="price-amt">₦350,000</div>
-        <div class="price-alt">Full analytics track</div>
+        <div class="price-alt">or $300</div>
         <ul>
           <li>Power BI dashboard development</li>
           <li>SQL for analysts</li>
@@ -686,7 +686,7 @@ footer li a:hover{color:var(--emerald-bright);}
           <li>1:1 online mentoring</li>
           <li>Certificate of completion</li>
         </ul>
-        <button type="button" class="price-cta" onclick="openEnrol('Excel + Power BI + SQL Bundle (3 Months — ₦350,000 / $300)')">Enroll Now →</button>
+        <button type="button" class="price-cta" onclick="openModal('bundleModal')">Enroll Now →</button>
       </div>
 
       <div class="price-card">
@@ -701,7 +701,7 @@ footer li a:hover{color:var(--emerald-bright);}
           <li>Free consultation to scope your school's program</li>
           <li>10% discount on package rate for groups of 50</li>
         </ul>
-        <button type="button" class="price-cta" onclick="openEnrol('Secondary School AI Training — Group of 50 (Free Consultation)')">Get a Free Consultation →</button>
+        <button type="button" class="price-cta" onclick="openModal('schoolModal')">Get a Free Consultation →</button>
       </div>
 
     </div>
@@ -791,38 +791,144 @@ footer li a:hover{color:var(--emerald-bright);}
   <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.28-1.38a9.9 9.9 0 0 0 4.7 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.17-1.56-1.17-2.98s.75-2.11 1.02-2.4c.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.15.12.32.02.51-.1.19-.15.31-.3.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.13.63-.08.17-.21.72-.84.91-1.13.19-.29.38-.24.64-.15.26.1 1.66.78 1.94.93.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>
 </a>
 
-<!-- ===== ENROLL MODAL ===== -->
-<div class="modal-overlay" id="enrolModal" role="dialog" aria-modal="true" aria-labelledby="enrolTitle">
+<!-- ===== EXCEL MASTERY MODAL ===== -->
+<div class="modal-overlay" id="excelModal" role="dialog" aria-modal="true" aria-labelledby="excelTitle">
   <div class="modal">
-    <button type="button" class="modal-close" id="enrolClose" aria-label="Close">✕</button>
-    <div class="eyebrow">Enroll</div>
-    <h3 id="enrolTitle">Reserve your spot</h3>
-    <p class="modal-sub" id="enrolProgramLabel">Fill this in and a member of the team will confirm your seat within 24 hours.</p>
-    <form id="enrolForm">
-      <input type="hidden" id="enrolProgram" name="program" value="">
-      <input type="hidden" name="form_type" value="Enrollment">
+    <button type="button" class="modal-close" data-close="excelModal" aria-label="Close">✕</button>
+    <div class="eyebrow">Excel Mastery — Enroll</div>
+    <h3 id="excelTitle">Reserve your spot</h3>
+    <p class="modal-sub">2 Months · Beginner → Advanced · ₦150,000 / $100. A member of the team will confirm your seat within 24 hours.</p>
+    <form id="excelForm">
+      <input type="hidden" name="program" value="Excel Mastery (2 Months — ₦150,000 / $100)">
+      <input type="hidden" name="_subject" value="New Enrollment — Excel Mastery">
       <div class="full">
-        <label for="e_name">Full Name</label>
-        <input id="e_name" name="name" type="text" required>
+        <label for="ex_name">Full Name</label>
+        <input id="ex_name" name="name" type="text" required>
       </div>
       <div>
-        <label for="e_email">Email Address</label>
-        <input id="e_email" name="email" type="email" required>
+        <label for="ex_email">Email Address</label>
+        <input id="ex_email" name="email" type="email" required>
       </div>
       <div>
-        <label for="e_phone">Phone / WhatsApp</label>
-        <input id="e_phone" name="phone" type="tel" required>
+        <label for="ex_phone">Phone / WhatsApp</label>
+        <input id="ex_phone" name="phone" type="tel" required>
+      </div>
+      <div>
+        <label for="ex_start">Preferred Start Date</label>
+        <input id="ex_start" name="preferred_start" type="text" placeholder="e.g. mid-August">
+      </div>
+      <div>
+        <label for="ex_currency">Payment Currency</label>
+        <select id="ex_currency" name="currency">
+          <option>Naira — ₦150,000</option>
+          <option>USD — $100</option>
+        </select>
       </div>
       <div class="full">
-        <label for="e_students">Number of Students <span style="text-transform:none;">(for group / school programs)</span></label>
-        <input id="e_students" name="students" type="text" placeholder="e.g. 50, or leave blank">
+        <label for="ex_message">Anything else we should know?</label>
+        <textarea id="ex_message" name="message" placeholder="Your current Excel level, questions..."></textarea>
       </div>
-      <div class="full">
-        <label for="e_message">Anything else we should know?</label>
-        <textarea id="e_message" name="message" placeholder="Preferred start date, payment currency, questions..."></textarea>
-      </div>
-      <div id="enrolStatus" class="full"></div>
+      <div id="excelStatus" class="full"></div>
       <button type="submit" class="submit-btn full">Submit Enrollment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== BUNDLE MODAL ===== -->
+<div class="modal-overlay" id="bundleModal" role="dialog" aria-modal="true" aria-labelledby="bundleTitle">
+  <div class="modal">
+    <button type="button" class="modal-close" data-close="bundleModal" aria-label="Close">✕</button>
+    <div class="eyebrow">Excel + Power BI + SQL — Enroll</div>
+    <h3 id="bundleTitle">Reserve your spot</h3>
+    <p class="modal-sub">3 Months · Beginner → Advanced · ₦350,000 / $300. A member of the team will confirm your seat within 24 hours.</p>
+    <form id="bundleForm">
+      <input type="hidden" name="program" value="Excel + Power BI + SQL Bundle (3 Months — ₦350,000 / $300)">
+      <input type="hidden" name="_subject" value="New Enrollment — Power BI + SQL Bundle">
+      <div class="full">
+        <label for="bd_name">Full Name</label>
+        <input id="bd_name" name="name" type="text" required>
+      </div>
+      <div>
+        <label for="bd_email">Email Address</label>
+        <input id="bd_email" name="email" type="email" required>
+      </div>
+      <div>
+        <label for="bd_phone">Phone / WhatsApp</label>
+        <input id="bd_phone" name="phone" type="tel" required>
+      </div>
+      <div>
+        <label for="bd_start">Preferred Start Date</label>
+        <input id="bd_start" name="preferred_start" type="text" placeholder="e.g. mid-August">
+      </div>
+      <div>
+        <label for="bd_currency">Payment Currency</label>
+        <select id="bd_currency" name="currency">
+          <option>Naira — ₦350,000</option>
+          <option>USD — $300</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="bd_level">Prior Experience</label>
+        <select id="bd_level" name="experience_level">
+          <option>Complete beginner</option>
+          <option>Comfortable with Excel</option>
+          <option>Some Power BI or SQL exposure</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="bd_message">Anything else we should know?</label>
+        <textarea id="bd_message" name="message" placeholder="Questions, goals for the course..."></textarea>
+      </div>
+      <div id="bundleStatus" class="full"></div>
+      <button type="submit" class="submit-btn full">Submit Enrollment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== SECONDARY SCHOOL MODAL ===== -->
+<div class="modal-overlay" id="schoolModal" role="dialog" aria-modal="true" aria-labelledby="schoolTitle">
+  <div class="modal">
+    <button type="button" class="modal-close" data-close="schoolModal" aria-label="Close">✕</button>
+    <div class="eyebrow">Secondary School AI Training — Free Consultation</div>
+    <h3 id="schoolTitle">Book your school's consultation</h3>
+    <p class="modal-sub">Groups of 50 students · Free consultation · 10% discount on Excel &amp; Data Analysis packages. We'll reach out within 24 hours to scope your program.</p>
+    <form id="schoolForm">
+      <input type="hidden" name="program" value="Secondary School AI Training — Group of 50 (Free Consultation)">
+      <input type="hidden" name="_subject" value="New Enquiry — Secondary School AI Training">
+      <div class="full">
+        <label for="sc_school">School Name</label>
+        <input id="sc_school" name="school_name" type="text" required>
+      </div>
+      <div>
+        <label for="sc_contact">Contact Person</label>
+        <input id="sc_contact" name="contact_person" type="text" required>
+      </div>
+      <div>
+        <label for="sc_role">Position / Role</label>
+        <input id="sc_role" name="role" type="text" placeholder="e.g. Principal, ICT Coordinator">
+      </div>
+      <div>
+        <label for="sc_email">Email Address</label>
+        <input id="sc_email" name="email" type="email" required>
+      </div>
+      <div>
+        <label for="sc_phone">Phone / WhatsApp</label>
+        <input id="sc_phone" name="phone" type="tel" required>
+      </div>
+      <div>
+        <label for="sc_students">Number of Students</label>
+        <input id="sc_students" name="students" type="text" value="50">
+      </div>
+      <div>
+        <label for="sc_date">Preferred Consultation Date</label>
+        <input id="sc_date" name="preferred_date" type="text" placeholder="e.g. first week of August">
+      </div>
+      <div class="full">
+        <label for="sc_message">Anything else we should know?</label>
+        <textarea id="sc_message" name="message" placeholder="Class level, timing, facilities available..."></textarea>
+      </div>
+      <div id="schoolStatus" class="full"></div>
+      <button type="submit" class="submit-btn full">Request Free Consultation →</button>
     </form>
   </div>
 </div>
@@ -930,69 +1036,86 @@ document.getElementById('contactForm').addEventListener('submit', async function
   btn.disabled = false;
 });
 
-// ===== ENROLL MODAL =====
-const enrolModal = document.getElementById('enrolModal');
-const enrolProgramInput = document.getElementById('enrolProgram');
-const enrolProgramLabel = document.getElementById('enrolProgramLabel');
-const enrolForm = document.getElementById('enrolForm');
-const enrolStatus = document.getElementById('enrolStatus');
+// ===== PACKAGE ENROLLMENT MODALS =====
+// Each package has its OWN Formspree form/endpoint, so submissions land in
+// separate Formspree inboxes and separate downloadable CSVs.
+// 1) Create 3 forms at https://formspree.io (Excel, Bundle, School)
+// 2) Paste each endpoint below in place of the YOUR_FORM_ID placeholders
+// 3) Every submission can be exported as CSV from each form's Formspree dashboard
+const FORM_ENDPOINT_EXCEL  = "https://formspree.io/f/YOUR_EXCEL_FORM_ID";
+const FORM_ENDPOINT_BUNDLE = "https://formspree.io/f/YOUR_BUNDLE_FORM_ID";
+const FORM_ENDPOINT_SCHOOL = "https://formspree.io/f/YOUR_SCHOOL_FORM_ID";
 
-function openEnrol(programName){
-  enrolProgramInput.value = programName;
-  enrolProgramLabel.textContent = programName + " — fill this in and a member of the team will confirm your seat within 24 hours.";
-  enrolStatus.className = '';
-  enrolStatus.textContent = '';
-  enrolStatus.style.display = 'none';
-  enrolModal.classList.add('open');
+function openModal(id){
+  const modal = document.getElementById(id);
+  modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeEnrol(){
-  enrolModal.classList.remove('open');
+function closeModal(id){
+  const modal = document.getElementById(id);
+  modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-document.getElementById('enrolClose').addEventListener('click', closeEnrol);
-enrolModal.addEventListener('click', (e) => { if(e.target === enrolModal) closeEnrol(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && enrolModal.classList.contains('open')) closeEnrol(); });
-
-enrolForm.addEventListener('submit', async function(e){
-  e.preventDefault();
-  const btn = this.querySelector('.submit-btn');
-  const data = new FormData(this);
-  btn.textContent = "Sending...";
-  btn.disabled = true;
-
-  if(FORM_ENDPOINT.includes("YOUR_FORM_ID")){
-    setTimeout(() => {
-      enrolStatus.className = 'ok';
-      enrolStatus.style.display = 'block';
-      enrolStatus.textContent = "Thanks — this is a preview. Connect a form endpoint (see code comments) to start receiving real enrollments.";
-      btn.textContent = "Submit Enrollment →";
-      btn.disabled = false;
-      this.reset();
-    }, 600);
-    return;
-  }
-
-  try{
-    const res = await fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{'Accept':'application/json'} });
-    if(res.ok){
-      enrolStatus.className = 'ok';
-      enrolStatus.style.display = 'block';
-      enrolStatus.textContent = "You're in! We've received your enrollment and will confirm your seat within 24 hours.";
-      this.reset();
-    } else {
-      enrolStatus.className = 'err';
-      enrolStatus.style.display = 'block';
-      enrolStatus.textContent = "Something went wrong sending your enrollment. Please try again or message us on WhatsApp.";
-    }
-  }catch(err){
-    enrolStatus.className = 'err';
-    enrolStatus.style.display = 'block';
-    enrolStatus.textContent = "Network error — please try again or message us on WhatsApp.";
-  }
-  btn.textContent = "Submit Enrollment →";
-  btn.disabled = false;
+document.querySelectorAll('.modal-close').forEach(btn => {
+  btn.addEventListener('click', () => closeModal(btn.dataset.close));
 });
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(overlay.id); });
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+  }
+});
+
+function wireEnrollForm(formId, statusId, endpoint, successMsg){
+  const form = document.getElementById(formId);
+  const status = document.getElementById(statusId);
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('.submit-btn');
+    const originalLabel = btn.textContent;
+    const data = new FormData(this);
+    btn.textContent = "Sending...";
+    btn.disabled = true;
+
+    if(endpoint.includes("YOUR_")){
+      setTimeout(() => {
+        status.className = 'ok';
+        status.style.display = 'block';
+        status.textContent = "Thanks — this is a preview. Connect this package's form endpoint (see code comments) to start receiving real enrollments.";
+        btn.textContent = originalLabel;
+        btn.disabled = false;
+        form.reset();
+      }, 600);
+      return;
+    }
+
+    try{
+      const res = await fetch(endpoint, { method:'POST', body:data, headers:{'Accept':'application/json'} });
+      if(res.ok){
+        status.className = 'ok';
+        status.style.display = 'block';
+        status.textContent = successMsg;
+        form.reset();
+      } else {
+        status.className = 'err';
+        status.style.display = 'block';
+        status.textContent = "Something went wrong sending this. Please try again or message us on WhatsApp.";
+      }
+    }catch(err){
+      status.className = 'err';
+      status.style.display = 'block';
+      status.textContent = "Network error — please try again or message us on WhatsApp.";
+    }
+    btn.textContent = originalLabel;
+    btn.disabled = false;
+  });
+}
+
+wireEnrollForm('excelForm',  'excelStatus',  FORM_ENDPOINT_EXCEL,  "You're in! We've received your Excel Mastery enrollment and will confirm your seat within 24 hours.");
+wireEnrollForm('bundleForm', 'bundleStatus', FORM_ENDPOINT_BUNDLE, "You're in! We've received your enrollment and will confirm your seat within 24 hours.");
+wireEnrollForm('schoolForm', 'schoolStatus', FORM_ENDPOINT_SCHOOL, "Thank you! We've received your school's request and will reach out within 24 hours to schedule your free consultation.");
 </script>
 </body>
 </html>
